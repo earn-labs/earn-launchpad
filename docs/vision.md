@@ -1,6 +1,6 @@
 ## 1. Purpose
 ### Problem
-Token launchpads are very popular - between 40,000 and 100,000 new tokens are launched every day generating a monthly revenue of \$60-100M. The highest percentage of these launches happend on Solana (Pump.fun) and on Binance Smart Chain (Four.meme). However, on average, only about 10 tokens per month reach a market cap of \$1M or more. 
+Token launchpads are very popular - between 40,000 and 100,000 new tokens are launched every day generating a monthly revenue of \$60-100M. The highest percentage of these launches happened on Solana (Pump.fun) and on Binance Smart Chain (Four.meme). However, on average, only about 10 tokens per month reach a market cap of \$1M or more. 
 ### Cause
 Tokens are launched to the general public without any prior vetting. This results in a large number of low-quality tokens being launched, which dilutes the market and makes it difficult for high-quality projects to gain traction. 
 ### Solution
