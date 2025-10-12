@@ -10,7 +10,7 @@ EARN Launchpad is a multi-chain launchpad with an AI and community driven vettin
 
 ## 2. Core Vision
 
-### EARN-based Liquidty Pools
+### EARN-based Liquidity Pools
 The launchpad will be built around the deflationary multi-chain token EARN that will be used as the pairing token for all liquidty pools. This way, projects will be interconnected and benefit from the volatility across the different pools. This will generate volume for projects and the EARN token through arbitrage while powering the deflationary mechanism of EARN. 
 
 ### AI Vetting
