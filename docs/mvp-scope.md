@@ -34,7 +34,7 @@ EARN Launchpad is a decentralized, multi-chain platform for launching curated, h
 
 ## 5. System Overview
 - Frontend: Next.js app for user interaction.
-- Backend: Nodejs service with REST/GraphQL API, indexing contract events, PostgreSQL database.
+- Backend: Node.js service with REST/GraphQL API, indexing contract events, PostgreSQL database.
 - Smart Contracts: Solidity contracts for launch mechanics, fund management, and token distribution.
 
 ## 6. Technical Constraints
