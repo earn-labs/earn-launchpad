@@ -108,7 +108,7 @@ EARN Launchpad is a decentralized, multi-chain platform for launching curated, h
 - GitHub Actions pipeline running tests.  
 
 ## 8. Success Criteria
-- ✅ Creator can submit a campagn Application
+- ✅ Creator can submit a campaign Application
 - ✅ Admin can vet and approve the campaign.  
 - ✅ After approval, campaign is automatically launched and contributors can fund it using testnet EARN.  
 - ✅ Campaign auto-closes and distributes tokens when goal (deadline or funding cap) is met.  
