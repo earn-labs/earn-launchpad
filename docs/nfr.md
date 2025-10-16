@@ -66,7 +66,7 @@ It describes the system’s expected quality attributes — performance, scalabi
 
 | ID | Requirement | Description | Priority |
 |----|--------------|-------------|----------|
-| **NFR-21** | Logging | Backend logs include timestamp, request ID, user wallet; stored for 7 days. | P-3 |
+| **NFR-21** | Logging | Backend logs include timestamp, request ID, and **pseudonymized** (e.g., hashed or truncated) user wallet address; logs stored for 7 days. Log retention, access controls, and redaction policies must be documented. | P-3 |
 | **NFR-22** | Metrics | Expose Prometheus-compatible endpoint with counters for requests, errors, event lag. | P-3 |
 | **NFR-23** | Alerts | CI pipeline or uptime monitor triggers Slack / email alert on backend failure. | P-1 |
 
