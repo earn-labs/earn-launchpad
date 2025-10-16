@@ -10,11 +10,11 @@ It describes the system’s expected quality attributes — performance, scalabi
 
 | ID | Requirement | Metric / Target | Priority |
 |----|--------------|----------------|----------|
-| **NFR-1** | Backend response time | API endpoints should respond within **< 500 ms** under nominal load (≤ 50 requests/sec). | P-2 |
-| **NFR-2** | Event indexing latency | On-chain events should be reflected in the database within **≤ 5 s** of block confirmation. | P-2 |
-| **NFR-3** | Contract deployment throughput | Token + liquidity deployments must succeed within **< 30 s total** from user action to confirmation. | P-2 |
-| **NFR-4** | Launch gas cost | The gas cost to deploy a token and its liquidity pool must not exceed **0.00025 ETH**. | P-2 |
-| **NFR-5** | Frontend load | Initial page load under **2 s** on modern desktop browser. | P-2 |
+| **NFR-1** | Backend response time | API endpoints should respond within **< 500 ms** under nominal load (≤ 50 requests/sec). | P2 |
+| **NFR-2** | Event indexing latency | On-chain events should be reflected in the database within **≤ 5 s** of block confirmation. | P2 |
+| **NFR-3** | Contract deployment throughput | Token + liquidity deployments must succeed within **< 30 s total** from user action to confirmation. | P2 |
+| **NFR-4** | Launch gas cost | The gas cost to deploy a token and its liquidity pool must not exceed **0.00025 ETH**. | P2 |
+| **NFR-5** | Frontend load | Initial page load under **2 s** on modern desktop browser. | P2 |
 
 
 ---
@@ -23,9 +23,9 @@ It describes the system’s expected quality attributes — performance, scalabi
 
 | ID | Requirement | Metric / Target | Priority |
 |----|--------------|----------------|----------|
-| **NFR-6** | Concurrent users | Support **100 active creators** performing transactions simultaneously without backend timeout. | P-2 |
-| **NFR-7** | Event volume | Indexer can process **1 000 contract events/minute** without backlog. | P-2 |
-| **NFR-8** | Horizontal scaling | Backend and DB must be deployable in containers that can be replicated for load balancing. | P-3 |
+| **NFR-6** | Concurrent users | Support **100 active creators** performing transactions simultaneously without backend timeout. | P2 |
+| **NFR-7** | Event volume | Indexer can process **1 000 contract events/minute** without backlog. | P2 |
+| **NFR-8** | Horizontal scaling | Backend and DB must be deployable in containers that can be replicated for load balancing. | P3 |
 
 ---
 
@@ -33,9 +33,9 @@ It describes the system’s expected quality attributes — performance, scalabi
 
 | ID | Requirement | Description | Priority |
 |----|--------------|-------------|----------|
-| **NFR-9** | Fault tolerance | System must recover from RPC or database outage within 1 minute without manual restart. | P-2 |
-| **NFR-10** | Transaction durability | Once confirmed on-chain, state must never be overwritten or lost in backend. | P-1 |
-| **NFR-11** | Error handling | Failed contract calls should return human-readable error messages and not block the UI. | P-2 |
+| **NFR-9** | Fault tolerance | System must recover from RPC or database outage within 1 minute without manual restart. | P2 |
+| **NFR-10** | Transaction durability | Once confirmed on-chain, state must never be overwritten or lost in backend. | P1 |
+| **NFR-11** | Error handling | Failed contract calls should return human-readable error messages and not block the UI. | P2 |
 
 ---
 
@@ -43,11 +43,11 @@ It describes the system’s expected quality attributes — performance, scalabi
 
 | ID | Requirement | Description | Priority |
 |----|--------------|-------------|----------|
-| **NFR-12** | Non-custodial design | Backend must never hold private keys or user funds. | P-1 |
-| **NFR-13** | Input validation | All API inputs validated against schema / type definitions. | P-2 |
-| **NFR-14** | Contract safety | Contracts reviewed with Foundry tests covering 100 % of public functions. | P-2 |
-| **NFR-15** | Environment secrets | API keys, RPC URLs, and DB credentials stored only in `.env` and not committed. | P-1 |
-| **NFR-16** | Access control | Only admin wallet can deploy TokenFactory & LiquidityDeployer. | P-1 |
+| **NFR-12** | Non-custodial design | Backend must never hold private keys or user funds. | P1 |
+| **NFR-13** | Input validation | All API inputs validated against schema / type definitions. | P2 |
+| **NFR-14** | Contract safety | Contracts reviewed with Foundry tests covering 100 % of public functions. | P2 |
+| **NFR-15** | Environment secrets | API keys, RPC URLs, and DB credentials stored only in `.env` and not committed. | P1 |
+| **NFR-16** | Access control | Only admin wallet can deploy TokenFactory & LiquidityDeployer. | P1 |
 
 ---
 
@@ -55,10 +55,10 @@ It describes the system’s expected quality attributes — performance, scalabi
 
 | ID | Requirement | Description | Priority |
 |----|--------------|-------------|----------|
-| **NFR-17** | Code quality | ESLint / Prettier / Solhint enforced in CI. | P-2 |
-| **NFR-18** | Test coverage | ≥ 80 % backend unit-test coverage; all contracts tested. | P-2 |
-| **NFR-19** | Documentation | Each module includes README + API doc / Swagger auto-generation. | P-3 |
-| **NFR-20** | ADR process | All architectural decisions tracked under `/docs/adr/`. | P-3 |
+| **NFR-17** | Code quality | ESLint / Prettier / Solhint enforced in CI. | P2 |
+| **NFR-18** | Test coverage | ≥ 80 % backend unit-test coverage; all contracts tested. | P2 |
+| **NFR-19** | Documentation | Each module includes README + API doc / Swagger auto-generation. | P3 |
+| **NFR-20** | ADR process | All architectural decisions tracked under `/docs/adr/`. | P3 |
 
 ---
 
@@ -66,9 +66,9 @@ It describes the system’s expected quality attributes — performance, scalabi
 
 | ID | Requirement | Description | Priority |
 |----|--------------|-------------|----------|
-| **NFR-21** | Logging | Backend logs include timestamp, request ID, user wallet; stored for 7 days. | P-3 |
-| **NFR-22** | Metrics | Expose Prometheus-compatible endpoint with counters for requests, errors, event lag. | P-3 |
-| **NFR-23** | Alerts | CI pipeline or uptime monitor triggers Slack / email alert on backend failure. | P-1 |
+| **NFR-21** | Logging | Backend logs include timestamp, request ID, user wallet; stored for 7 days. | P3 |
+| **NFR-22** | Metrics | Expose Prometheus-compatible endpoint with counters for requests, errors, event lag. | P3 |
+| **NFR-23** | Alerts | CI pipeline or uptime monitor triggers Slack / email alert on backend failure. | P1 |
 
 ---
 
@@ -76,9 +76,9 @@ It describes the system’s expected quality attributes — performance, scalabi
 
 | ID | Requirement | Description | Priority |
 |----|--------------|-------------|----------|
-| **NFR-24** | CI / CD | GitHub Actions runs tests → build → deploy automatically on merge to `dev` / `master`. | P-2 |
-| **NFR-25** | Docker reproducibility | Entire stack (contracts + backend + frontend) must build/run locally via `docker-compose up`. | P-3 |
-| **NFR-26** | Testnet isolation | All deployments use **Base Sepolia** with isolated EARN token instance. | P-1 |
+| **NFR-24** | CI / CD | GitHub Actions runs tests → build → deploy automatically on merge to `dev` / `master`. | P2 |
+| **NFR-25** | Docker reproducibility | Entire stack (contracts + backend + frontend) must build/run locally via `docker-compose up`. | P3 |
+| **NFR-26** | Testnet isolation | All deployments use **Base Sepolia** with isolated EARN token instance. | P1 |
 
 ---
 
