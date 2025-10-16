@@ -59,7 +59,7 @@ These will be part of later MVP versions:
 ---
 
 ## 7. Open Questions
-- What type of liquidity deployment should occur (PancakeSwap or Uniswap, V2, V3, or V4)? 
+- What type of liquidity deployment should occur (PancakeSwap or Uniswap, V2, V3, or V4)?
 - Should backend verify on-chain deployment success before storing metadata?  
 - Should tokens be verified via block explorer in pipeline?
 
