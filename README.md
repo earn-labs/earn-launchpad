@@ -46,7 +46,7 @@ The platform consists of three main components:
 - **Backend**: NestJS, PostgreSQL, GraphQL/REST API
 - **Smart Contracts**: Solidity, Foundry
 - **Infrastructure**: Docker Compose, GitHub Actions CI/CD
-- **Blockchain**: BNB Chain (initial deployment)
+- **Blockchain**: Base Chain (initial deployment)
 
 ## 🚦 Getting Started
 
@@ -153,7 +153,7 @@ npm run build:frontend
 
 ## 🌐 Deployment
 
-The platform is designed for deployment on BNB Chain (testnet for MVP) with the following requirements:
+The platform is designed for deployment on Base Chain (Sepolia for MVP) with the following requirements:
 
 - EARN token contract deployed
 - DEX router for liquidity pool creation
