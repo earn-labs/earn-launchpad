@@ -1,5 +1,5 @@
 ## 1. Project Overview
-EARN Launchpad is a decentralized, multi-chain platform for launching curated, high-quality token projects using the EARN token as the ecosystem’s liquidity and governance backbone. To move fast and validate product market fit (PMF), the MVP will be launched on a single chain (BNB) in two phases:
+EARN Launchpad is a decentralized, multi-chain platform for launching curated, high-quality token projects using the EARN token as the ecosystem’s liquidity and governance backbone. To move fast and validate product market fit (PMF), the MVP will be launched on a single chain (Base) in two phases:
 
 1. MVP v0: Token Creation & Liquidity Deployment (EARN pair)
 2. MVP v1: Fundraising Flow (basic contribution + distribution)
@@ -28,7 +28,7 @@ EARN Launchpad is a decentralized, multi-chain platform for launching curated, h
 |-----------|------------------|
 | **AI vetting** | No AI project scoring in MVP. |
 | **DAO governance** | No community voting or staking yet. |
-| **Cross-chain launches** | One chain only (BNB Testnet). |
+| **Cross-chain launches** | One chain only (Base Sepolia). |
 | **Custom Token Bridge** | No cross-chain token transfers. |
 | **Rewards / Referrals** | No reward system integration. |
 | **Advanced pricing curves** | Fixed pricing model. |

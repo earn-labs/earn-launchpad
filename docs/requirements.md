@@ -33,7 +33,7 @@ Out of scope:
 
 | ID | Requirement | Description | Acceptance Criteria |
 |----|--------------|--------------|--------------------|
-| **FR-1** | Token creation | The system must allow a user to create a new ERC-20 token with parameters (name, symbol, description, logo image, socials) and flat-rate liquidity and operations (0.09 BNB). | When the user submits the form, a token is deployed with fixed supply on-chain via the TokenFactory contract, and its address is returned. |
+| **FR-1** | Token creation | The system must allow a user to create a new ERC-20 token with parameters (name, symbol, description, logo image, socials) and flat-rate liquidity and operations (0.01 ETH). | When the user submits the form, a token is deployed with fixed supply on-chain via the TokenFactory contract, and its address is returned. |
 | **FR-2** | Token metadata persistence | The backend must store token metadata (creator address, token address, parameters, timestamp, verification status). | After token creation, metadata is verified on-chain and the backend API persists the metadata and serves it through `/api/tokens`. |
 | **FR-3** | Liquidity deployment | The system must automatically create a Uniswap V3 liquidity pool for the new token and EARN token pair. | When the user submits the form and token is created, a LiquidityDeployer contract call succeeds and emits a PoolCreated event. |
 | **FR-4** | Liquidity Burn | Liquidity must automatically be burned. | After liquidity pool is created, the liquidity is automatically burned, emitting a LiquidityBurned event. |
