@@ -1,32 +1,35 @@
 ```mermaid
-%%{init: {'theme':'dark'}}%%
+%%{init: {'theme': 'dark'}}%%
 sequenceDiagram
     participant U as User (Wallet)
-    participant F as Frontend (Next.js)
-    participant B as Backend (Node.js)
-    participant D as Deployer (Smart Contract)
-    participant T as TokenContract
-    participant U3 as UniswapV3 (DEX)
+    participant F as Frontend (Scaffold-ETH 2)
+    participant I as IPFS (Web3.Storage)
+    participant C as Contracts (TokenFactory + LiquidityDeployer)
+    participant E as Envio (Indexer)
+    participant B as Launch Registry (Backend)
 
-    %% --- User initiates ---
-    U->>F: Open Launchpad UI
-    F->>B: POST /api/launch (token + params)
-    B->>D: launch()
-    %% --- On-chain execution ---
-    U->>D: launch fee (ETH)
-    D->>T: createToken()
-    D->>D: devBuyInSwap() (optional)
-    D->>U3: addLiquidity()
-    D->>D: burnLiquidity()
-    D->>U: sendDevTokens()
-    %% --- Event propagation ---
-    D-->>B: [1] TokenCreated event
-    D-->>B: [2] DevBuyInSwapped event (if buy-in enabled)
-    D-->>B: [3] LiquidityAdded event
-    D-->>B: [4] LiquidityBurned event
-    D-->>B: [5] DevTokensSent event (if buy-in enabled)
-    %% --- Indexing + response ---
-    B->>B: Persist metadata
-    B-->>F: API update (pool address, token address, burn status) *
-    F-->>U: Show confirmation + Tx summary
+    %% --- Token Creation ---
+    U->>F: Fill token form (name, symbol, description, logo, socials)
+    F->>I: Upload metadata.json + logo
+    I-->>F: Return tokenCID
+    F->>C: createToken(name, symbol, supply, tokenCID)
+    C-->>E: emit TokenCreated(token, creator, tokenCID)
+    E-->>F: Event indexed and available via GraphQL
+
+    %% --- Liquidity Deployment ---
+    U->>F: Provide liquidity params (amounts, allocation)
+    F->>C: deployLiquidity(token, EARN, params)
+    C-->>E: emit LiquidityAdded(token, pool, lpCID)
+    F->>I: Upload LP metadata.json (poolAddress, burnStatus, devAlloc)
+    I-->>F: Return lpCID
+    F->>B: POST /launches {tokenCID, lpCID, creator, tokenAddress, poolAddress}
+    B-->>F: Return 201 Created
+
+    %% --- Display ---
+    F->>E: Query launched tokens via GraphQL
+    E-->>F: Return indexed launches
+    F->>I: Fetch metadata (token + LP)
+    I-->>F: Return logo + description
+    F-->>U: Display launch card (token info + liquidity status)
+
 ```
