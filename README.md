@@ -25,6 +25,13 @@ The platform consists of three main components:
 - **Backend**: NestJS API service with PostgreSQL database for event indexing and metadata storage
 - **Smart Contracts**: Solidity contracts handling launch mechanics, fund management, and token distribution
 
+## 📄 Documentation Map
+- [MVP Scope](./docs/mvp-scope.md)
+- [Requirements](./docs/requirements.md)
+- [NFRs](./docs/nfr.md)
+- [Architecture Diagrams](./docs/diagrams/)
+- [ADRs](./docs/adr/)
+
 ## 📋 MVP Roadmap
 
 ### Phase 1: MVP v0 - Token Creation & Liquidity Deployment
