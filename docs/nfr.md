@@ -1,41 +1,42 @@
 # Non-Functional Requirements — MVP v0 (Token Creation & Liquidity Deployment)
 
 ## 1. Overview
-This document defines the **non-functional requirements (NFRs)** for EARN Launchpad MVP v0.  
-It describes the system’s expected quality attributes — performance, scalability, reliability, security, maintainability, and observability — to guide architectural and implementation decisions.
+This document defines quality attributes for EARN Launchpad MVP v0, reflecting the hybrid architecture using:
+- IPFS for metadata storage  
+- Envio for indexing  
+- Minimal Launch Registry backend (Fastify + SQLite)
 
 ---
 
 ## 2. Performance
 
-| ID | Requirement | Metric / Target | Priority |
-|----|--------------|----------------|----------|
-| **NFR-1** | Backend response time | API endpoints should respond within **< 500 ms** under nominal load (≤ 50 requests/sec). | P2 |
-| **NFR-2** | Event indexing latency | On-chain events should be reflected in the database within **≤ 5 s** of block confirmation. | P2 |
-| **NFR-3** | Contract deployment throughput | Token + liquidity deployments must succeed within **< 30 s total** from user action to confirmation. | P2 |
-| **NFR-4** | Launch gas cost | The gas cost to deploy a token and its liquidity pool must not exceed **0.00025 ETH**. | P2 |
-| **NFR-5** | Frontend load | Initial page load under **2 s** on modern desktop browser. | P2 |
-
+| ID | Requirement | Target | Priority |
+|----|--------------|--------|----------|
+| **NFR-1** | Launch Registry response time | < 500 ms for CID lookups | P2 |
+| **NFR-2** | Envio indexing latency | ≤ 5 s after block confirmation | P2 |
+| **NFR-3** | IPFS upload latency | ≤ 3 s for 100 KB metadata bundle | P2 |
+| **NFR-4** | Token + LP deployment | ≤ 30 s total transaction time | P2 |
+| **NFR-5** | Frontend load time | < 2 s on modern browsers | P2 |
 
 ---
 
 ## 3. Scalability
 
-| ID | Requirement | Metric / Target | Priority |
-|----|--------------|----------------|----------|
-| **NFR-6** | Concurrent users | Support **100 active creators** performing transactions simultaneously without backend timeout. | P2 |
-| **NFR-7** | Event volume | Indexer can process **1 000 contract events/minute** without backlog. | P2 |
-| **NFR-8** | Horizontal scaling | Backend and DB must be deployable in containers that can be replicated for load balancing. | P3 |
+| ID | Requirement | Description | Priority |
+|----|--------------|-------------|----------|
+| **NFR-6** | Concurrent users | 100 creators simultaneously deploying tokens | P2 |
+| **NFR-7** | Envio throughput | Handle 1,000 events/min without delay | P2 |
+| **NFR-8** | Backend replication | Launch Registry deployable as stateless container | P3 |
 
 ---
 
-## 4. Reliability / Availability
+## 4. Reliability
 
 | ID | Requirement | Description | Priority |
 |----|--------------|-------------|----------|
-| **NFR-9** | Fault tolerance | System must recover from RPC or database outage within 1 minute without manual restart. | P2 |
-| **NFR-10** | Transaction durability | Once confirmed on-chain, state must never be overwritten or lost in backend. | P1 |
-| **NFR-11** | Error handling | Failed contract calls should return human-readable error messages and not block the UI. | P2 |
+| **NFR-9** | Fault tolerance | System recovers from RPC/IPFS outage within 1 min | P2 |
+| **NFR-10** | Idempotent writes | Backend ignores duplicate CIDs and tx hashes | P1 |
+| **NFR-11** | Event consistency | Envio + backend data consistent via CID + address correlation | P1 |
 
 ---
 
@@ -43,11 +44,10 @@ It describes the system’s expected quality attributes — performance, scalabi
 
 | ID | Requirement | Description | Priority |
 |----|--------------|-------------|----------|
-| **NFR-12** | Non-custodial design | Backend must never hold private keys or user funds. | P1 |
-| **NFR-13** | Input validation | All API inputs validated against schema / type definitions. | P2 |
-| **NFR-14** | Contract safety | Contracts reviewed with Foundry tests covering 100 % of public functions. | P2 |
-| **NFR-15** | Environment secrets | API keys, RPC URLs, and DB credentials stored only in `.env` and not committed. | P1 |
-| **NFR-16** | Access control | Only admin wallet can deploy TokenFactory & LiquidityDeployer. | P1 |
+| **NFR-12** | Non-custodial | Backend stores no funds/private keys | P1 |
+| **NFR-13** | IPFS validation | Uploaded files restricted to valid MIME types | P2 |
+| **NFR-14** | Access control | Only authorized wallet can deploy contracts | P1 |
+| **NFR-15** | Secrets management | `.env` for all API keys and RPCs | P1 |
 
 ---
 
@@ -55,51 +55,34 @@ It describes the system’s expected quality attributes — performance, scalabi
 
 | ID | Requirement | Description | Priority |
 |----|--------------|-------------|----------|
-| **NFR-17** | Code quality | ESLint / Prettier / Solhint enforced in CI. | P2 |
-| **NFR-18** | Test coverage | ≥ 80 % backend unit-test coverage; all contracts tested. | P2 |
-| **NFR-19** | Documentation | Each module includes README + API doc / Swagger auto-generation. | P3 |
-| **NFR-20** | ADR process | All architectural decisions tracked under `/docs/adr/`. | P3 |
+| **NFR-16** | Code quality | ESLint / Solhint / Prettier enforced | P2 |
+| **NFR-17** | Test coverage | ≥ 80 % smart contract & backend tests | P2 |
+| **NFR-18** | Documentation | ADRs and API specs maintained in `/docs` | P3 |
 
 ---
 
-## 7. Observability / Monitoring
+## 7. Observability
 
 | ID | Requirement | Description | Priority |
 |----|--------------|-------------|----------|
-| **NFR-21** | Logging | Backend logs include timestamp, request ID, user wallet; stored for 7 days. | P3 |
-| **NFR-22** | Metrics | Expose Prometheus-compatible endpoint with counters for requests, errors, event lag. | P3 |
-| **NFR-23** | Alerts | CI pipeline or uptime monitor triggers Slack / email alert on backend failure. | P1 |
+| **NFR-19** | Logging | Envio + backend logs timestamped and persisted 7 days | P3 |
+| **NFR-20** | Metrics | Prometheus-compatible endpoint for backend | P3 |
+| **NFR-21** | Alerts | CI/CD failure or backend downtime triggers Slack/email | P1 |
 
 ---
 
-## 8. Compliance / Deployment
+## 8. Deployment
 
 | ID | Requirement | Description | Priority |
 |----|--------------|-------------|----------|
-| **NFR-24** | CI / CD | GitHub Actions runs tests → build → deploy automatically on merge to `dev` / `master`. | P2 |
-| **NFR-25** | Docker reproducibility | Entire stack (contracts + backend + frontend) must build/run locally via `docker-compose up`. | P3 |
-| **NFR-26** | Testnet isolation | All deployments use **Base Sepolia** with isolated EARN token instance. | P1 |
+| **NFR-22** | CI/CD | GitHub Actions runs test → build → deploy | P2 |
+| **NFR-23** | Docker reproducibility | All services run under `docker-compose up` | P2 |
+| **NFR-24** | Testnet | Base Sepolia with mock EARN token | P1 |
 
 ---
 
-## 9. Prioritization
-
-| Priority | Meaning |
-|-----------|---------|
-| **P1 – Critical** | Must be met for MVP v0 to function (security, correctness). |
-| **P2 – High** | Strongly desired for stability (scalability, reliability). |
-| **P3 – Medium** | Nice-to-have for DX / monitoring. |
-
----
-
-## 10. Validation Strategy
-Each NFR will be validated through:
-- **Automated tests** (CI/CD for code quality and performance metrics)
-- **Manual stress tests** for event indexing latency and contract throughput
-- **Static analysis** for security and contract safety
-
----
-## 11. References
-- `/docs/requirements.md` — Functional Requirements  
-- `/docs/mvp-scope.md` — MVP Scope  
-- `/docs/adr/ADR-001.md` — Decision Record  
+## 9. Validation
+- Unit + integration tests (contracts + backend)
+- Manual latency test for Envio indexing
+- IPFS upload timing test
+- Continuous monitoring via CI logs
