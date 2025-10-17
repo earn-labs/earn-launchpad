@@ -1,0 +1,32 @@
+```mermaid
+%%{init: {'theme':'dark'}}%%
+sequenceDiagram
+    participant U as User (Wallet)
+    participant F as Frontend (Next.js)
+    participant B as Backend (Node.js)
+    participant D as Deployer (Smart Contract)
+    participant T as TokenContract
+    participant U3 as UniswapV3 (DEX)
+
+    %% --- User initiates ---
+    U->>F: Open Launchpad UI
+    F->>B: POST /api/launch (token + params)
+    B->>D: launch()
+    %% --- On-chain execution ---
+    U->>D: launch fee (ETH)
+    D->>T: createToken()
+    D->>D: devBuyInSwap() (optional)
+    D->>U3: addLiquidity()
+    D->>D: burnLiquidity()
+    D->>U: sendDevTokens()
+    %% --- Event propagation ---
+    D-->>B: [1] TokenCreated event
+    D-->>B: [2] DevBuyInSwapped event (if buy-in enabled)
+    D-->>B: [3] LiquidityAdded event
+    D-->>B: [4] LiquidityBurned event
+    D-->>B: [5] DevTokensSent event (if buy-in enabled)
+    %% --- Indexing + response ---
+    B->>B: Persist metadata
+    B-->>F: API update (pool address, token address, burn status) *
+    F-->>U: Show confirmation + Tx summary
+```
