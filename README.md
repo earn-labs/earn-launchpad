@@ -9,6 +9,10 @@
 
 EARN Launchpad enables creators to launch token projects with built-in liquidity deployment and fundraising mechanisms. The platform uses the EARN token as the primary funding currency and automatically creates liquidity pools paired with EARN tokens.
 
+nvm version: 0.40.3
+node version: v22.20.0
+npm version: 11.6.2
+
 ### Key Features
 
 - **Token Creation & Deployment**: Simple ERC-20 token creation with automatic liquidity pool setup
