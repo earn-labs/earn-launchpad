@@ -19,11 +19,11 @@ jobs:
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
         with:
-          version: nightly   # or stable
+          version: stable
 
       # Step 3: Install dependencies (if any)
       - name: Install dependencies
-        run: forge install --no-commit || true
+        run: forge install foundry-rs/forge-std --no-commit || true
 
       # Step 4: Run tests
       - name: Run Foundry tests
