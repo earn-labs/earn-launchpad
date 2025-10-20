@@ -1,0 +1,56 @@
+name: Contracts CI
+
+on:
+  push:
+    branches: [ "master", "dev" ]
+  pull_request:
+    branches: [ "master", "dev" ]
+
+jobs:
+  test-contracts:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Install Foundry
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly   # or stable
+
+      # Step 3: Install dependencies (if any)
+      - name: Install dependencies
+        run: forge install --no-commit || true
+
+      # Step 4: Run tests
+      - name: Run Foundry tests
+        run: forge test -vvv
+
+      # Step 5: Cache Foundry build artifacts
+      - name: Cache Foundry build
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.foundry/cache
+            out
+          key: ${{ runner.os }}-foundry-${{ hashFiles('foundry.toml') }}
+
+  security-aderyn:
+    runs-on: ubuntu-latest
+    needs: test-contracts    # only run if tests pass
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Aderyn
+        run: |
+          curl -L https://github.com/Cyfrin/aderyn/releases/latest/download/aderyn-linux-x64 -o aderyn
+          chmod +x aderyn
+          sudo mv aderyn /usr/local/bin/
+
+      - name: Run Aderyn static analysis
+        run: |
+          aderyn .
