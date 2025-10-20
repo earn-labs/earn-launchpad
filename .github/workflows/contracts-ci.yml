@@ -49,9 +49,8 @@ jobs:
 
       - name: Install Aderyn
         run: |
-          curl -L https://github.com/Cyfrin/aderyn/releases/latest/download/aderyn-linux-x64 -o aderyn
-          chmod +x aderyn
-          sudo mv aderyn /usr/local/bin/
+          cyfrinup
+          curl --proto '=https' --tlsv1.2 -LsSf https://github.com/cyfrin/aderyn/releases/latest/download/aderyn-installer.sh | bash
 
       - name: Run Aderyn static analysis
         run: |
