@@ -9,6 +9,10 @@
 
 EARN Launchpad enables creators to launch token projects with built-in liquidity deployment and fundraising mechanisms. The platform uses the EARN token as the primary funding currency and automatically creates liquidity pools paired with EARN tokens.
 
+nvm version: 0.40.3
+node version: v22.20.0
+npm version: 11.6.2
+
 ### Key Features
 
 - **Token Creation & Deployment**: Simple ERC-20 token creation with automatic liquidity pool setup
@@ -24,6 +28,13 @@ The platform consists of three main components:
 - **Frontend**: Next.js application for user interaction and project management
 - **Backend**: NestJS API service with PostgreSQL database for event indexing and metadata storage
 - **Smart Contracts**: Solidity contracts handling launch mechanics, fund management, and token distribution
+
+## 📄 Documentation Map
+- [MVP Scope](./docs/mvp-scope.md)
+- [Requirements](./docs/requirements.md)
+- [NFRs](./docs/nfr.md)
+- [Architecture Diagrams](./docs/diagrams/)
+- [ADRs](./docs/adr/)
 
 ## 📋 MVP Roadmap
 
