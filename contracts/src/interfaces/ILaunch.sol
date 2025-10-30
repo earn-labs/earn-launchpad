@@ -72,7 +72,7 @@ interface ILaunch {
     /// @notice Get current launch state
     function getState() external view returns (LaunchState);
 
-    // @notice Get current price per token
+    /// @notice Get current price per token
     function getCurrentPrice() external view returns (uint256);
 
     /// @notice Get launch creator
