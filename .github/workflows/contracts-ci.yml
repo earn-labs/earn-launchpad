@@ -16,6 +16,8 @@ jobs:
       # Step 1: Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       # Step 2: Install Foundry
       - name: Install Foundry
@@ -23,9 +25,9 @@ jobs:
         with:
           version: stable
 
-      # Step 3: Install dependencies (if any)
+      # Step 3: Install additional dependencies (if needed)
       - name: Install dependencies
-        run: forge install foundry-rs/forge-std --no-commit || true
+        run: forge install --no-commit || true
 
       # Step 4: Run tests
       - name: Run Foundry tests
@@ -46,6 +48,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Install Aderyn
         run: |
