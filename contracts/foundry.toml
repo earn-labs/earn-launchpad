@@ -1,7 +1,10 @@
 [profile.default]
 src = "src"
-solc = "0.8.27"
+solc = "0.8.26"
 out = "out"
 libs = ["lib"]
+
+[lint]
+exclude_lints = ["unused-import","mixed-case-variable","screaming-snake-case-immutable"]
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
